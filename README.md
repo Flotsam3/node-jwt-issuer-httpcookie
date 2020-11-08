@@ -174,19 +174,20 @@ Where:
 
 In this assignment, we will create a route to login the user, and issue a JWT token
 
-1. Create a route `/login` in `user.js`. This will be a `POST` route.
+1. Create a route /login in user.js. This will be a POST route.
+Inside your /login route, you can expect to receive the values, email and password from request.body
 
-Inside your `/login` route, you can expect to receive the values, **email** and **password** from `request.body`
-
-2. Using the `User` model, use the `findOne` method to search for the user based on the `email`
+2. Using the User model, use the findOne method to search for the user based on the email
 
     - If the user doesn't exist, send a fail response to the user
-    
-    - If the user does exist, we will proceed
 
-3. Import the `jwtIssuer` function from the `utils` folder
+    - If the user does exist use bcrypt.compare()to compare the password with the hash in the database
 
-4. If the user exists, use the `jwtIssuer` function to create a jwt token, and send this as a response to the user
+    - If the password does not match, send a fail response to the user
+
+3. Import the jwtIssuer function from the utils folder
+
+4. If the user exists, and the password matched, use the jwtIssuer function to create a jwt token, and send this as a response to the user
 
 5. Test your code
 

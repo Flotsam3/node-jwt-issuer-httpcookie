@@ -9,6 +9,26 @@ function App() {
     console.log(registerData.get('email'));
     console.log(registerData.get('password'));
 
+    fetch('http://localhost:3001/register', { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: registerData.get('name'), email: registerData.get('email'), hash: registerData.get('password')})
+    }).then((response)=>{
+      console.log(response);
+    })
+  }
+
+  const handleLoginForm = (event)=>{
+    event.preventDefault();
+    const registerForm = document.querySelector('#login');
+    const registerData = new FormData(registerForm)
+    console.log(registerData.get('name'));
+    console.log(registerData.get('email'));
+    console.log(registerData.get('password'));
+
     fetch('http://localhost:3001/login', { 
       method: 'POST',
       headers: {
@@ -16,7 +36,9 @@ function App() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({name: registerData.get('name'), email: registerData.get('email'), hash: registerData.get('password')})
-    });
+    }).then((response)=>{
+      console.log(response);
+    })
   }
 
   return (
@@ -40,7 +62,7 @@ function App() {
         <input type="email" name="email" id="login-email" />
         <label for="password">Password</label>
         <input type="password" name="password" id="login-password" />
-        <input onClick={handleRegisterForm} type="submit" value="Submit" />
+        <input onClick={handleLoginForm} type="submit" value="Submit" />
       </form>
     </div>
   );
