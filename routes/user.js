@@ -4,10 +4,9 @@ const User = require('../UserModel');
 const bcrypt = require('bcrypt');
 const jwtIssuer = require('../utils/jwtissuer');
 
-const name = 'User5';
-const email = 'user5@mail.de';
-let hashedPass = '';
-let hash = 'password5';
+// const name = 'User5';
+// const email = 'user5@mail.de';
+// let hash = 'password5';
 
 router.post('/register', (req, res)=>{
 
@@ -19,17 +18,16 @@ router.post('/register', (req, res)=>{
 
             async function generateHash(password){
                 const salt = await bcrypt.genSalt(10);
-                hashedPass = await bcrypt.hash(password, salt);
+                const hashedPass = await bcrypt.hash(password, salt);
                 
                 User.create({
                     name: req.body.name,
                     email: req.body.email,
                     hash: hashedPass
                 }).then(() => {
-                    res.send('New user created!')
+                    res.status(200).send('Response from the Server')
                 });
             }
-
         }
     });
 });
@@ -39,12 +37,14 @@ router.post('/login', (req, res)=>{
         if (user === null){
             res.status(404).send('No such user!');
         } else {
-            bcrypt.compare(hash, user.hash, (err, valid)=>{
+            bcrypt.compare(req.body.hash, user.hash, (err, valid)=>{
                 if (err) throw err;
                 
                 if (valid){
                     console.log(req.body);
-                    res.status(200).send(jwtIssuer());
+                    // res.status(200).send(jwtIssuer());
+                    const obj = {message: 'It worked!'}
+                    res.status(200).end(JSON.stringify(obj));
                 }else{
                     res.status(401).send('Access denied, please log in!')
                 }
