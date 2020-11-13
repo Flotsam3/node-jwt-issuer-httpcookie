@@ -4,10 +4,6 @@ const User = require('../UserModel');
 const bcrypt = require('bcrypt');
 const jwtIssuer = require('../utils/jwtissuer');
 
-// const name = 'User5';
-// const email = 'user5@mail.de';
-// let hash = 'password5';
-
 router.post('/register', (req, res)=>{
 
     User.findOne({ email: req.body.email }).then((user) => {
@@ -42,9 +38,7 @@ router.post('/login', (req, res)=>{
                 
                 if (valid){
                     console.log(req.body);
-                    // res.status(200).send(jwtIssuer());
-                    const obj = {message: 'It worked!'}
-                    res.status(200).end(JSON.stringify(obj));
+                    res.status(200).send(jwtIssuer());
                 }else{
                     res.status(401).send('Access denied, please log in!')
                 }
