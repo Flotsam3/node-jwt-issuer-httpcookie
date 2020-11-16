@@ -21,7 +21,7 @@ router.post('/register', (req, res)=>{
                     email: req.body.email,
                     hash: hashedPass
                 }).then(() => {
-                    res.status(200).send('Response from the Server')
+                    res.status(200).send('New user successfully created!')
                 });
             }
         }
@@ -38,7 +38,7 @@ router.post('/login', (req, res)=>{
                 
                 if (valid){
                     console.log(req.body);
-                    res.status(200).send(jwtIssuer());
+                    res.status(200).cookie('jwt', jwtIssuer, {httpOnly: true, sameSite: 'lax'}).send('Successfully logged in!');
                 }else{
                     res.status(401).send('Access denied, please log in!')
                 }

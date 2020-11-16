@@ -1,4 +1,7 @@
 const jsonwebtoken = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 function jwtIssuer(user){
     const expiresIn = '1d';
@@ -7,10 +10,9 @@ function jwtIssuer(user){
         iat: Date.now()
     }
 
-    const signedToken = jsonwebtoken.sign(payload, '1030egjekergß34ßt3');
+    const signedToken = jsonwebtoken.sign(payload, process.env.SECRET_KEY);
 
     return {
-        token: 'Bearer',
         signedToken,
         expiresIn
     };
