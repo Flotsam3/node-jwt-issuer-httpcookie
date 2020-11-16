@@ -38,7 +38,7 @@ router.post('/login', (req, res)=>{
                 
                 if (valid){
                     console.log(req.body);
-                    res.status(200).cookie('jwt', jwtIssuer, {httpOnly: true, sameSite: 'lax'}).send('Successfully logged in!');
+                    res.status(200).cookie('jwt', jwtIssuer(user).signedToken, {httpOnly: true, sameSite: 'lax'}).send('Successfully logged in!');
                 }else{
                     res.status(401).send('Access denied, please log in!')
                 }

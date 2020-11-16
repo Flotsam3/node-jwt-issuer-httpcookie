@@ -6,7 +6,7 @@ dotenv.config();
 function jwtIssuer(user){
     const expiresIn = '1d';
     const payload = {
-        sub: '100143jgegj0rdd447611',
+        sub: user._id,
         iat: Date.now()
     }
 
