@@ -1,70 +1,35 @@
 import './App.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import Register from './Register';
+import Login from './Login';
+import Edit from './Edit';
+import Delete from './Delete';
 
 function App() {
-  const handleRegisterForm = (event)=>{
-    event.preventDefault();
-    const registerForm = document.querySelector('#register');
-    const registerData = new FormData(registerForm)
-    console.log(registerData.get('name'));
-    console.log(registerData.get('email'));
-    console.log(registerData.get('password'));
-
-    fetch('http://localhost:3001/register', { 
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({name: registerData.get('name'), email: registerData.get('email'), hash: registerData.get('password')})
-    }).then((response)=>{
-      console.log(response);
-    })
-  }
-
-  const handleLoginForm = (event)=>{
-    event.preventDefault();
-    const registerForm = document.querySelector('#login');
-    const registerData = new FormData(registerForm)
-    console.log(registerData.get('name'));
-    console.log(registerData.get('email'));
-    console.log(registerData.get('password'));
-
-    fetch('http://localhost:3001/login', { 
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({name: registerData.get('name'), email: registerData.get('email'), hash: registerData.get('password')})
-    }).then((response)=>{
-      console.log(response);
-    })
-  }
-
+  
   return (
-    <div >
-      <form id="register">
-        <h3>Register</h3>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="register-name" />
-        <label for="email">Email</label>
-        <input type="email" name="email" id="register-email" />
-        <label for="password">Password</label>
-        <input type="password" name="password" id="register-password" />
-        <input onClick={handleRegisterForm} type="submit" value="Submit" />
-        
-      </form>
-      <form id="login">
-        <h3>Login</h3>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="login-name" />
-        <label for="email">Email</label>
-        <input type="email" name="email" id="login-email" />
-        <label for="password">Password</label>
-        <input type="password" name="password" id="login-password" />
-        <input onClick={handleLoginForm} type="submit" value="Submit" />
-      </form>
-    </div>
+    <Router>
+        <>
+        <li>
+          <Link to="/register">Register</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/edit">Edit</Link>
+        </li>
+        <li>
+        <Link to="/delete">Delete</Link>
+        </li>
+          <Route path="/register" component={Register}/>
+          <Route path="/login" component={Login}/>
+          <Route path="/edit" component={Edit}/>
+          <Route path="/delete" component={Delete}/>
+        </>
+    </Router>
   );
 }
 

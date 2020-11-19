@@ -4,20 +4,32 @@
   box-sizing: border-box;
 }
 
-#register, #login {
+#register,
+#login,
+#edit,
+#delete {
   margin: 20px;
 }
 
-#register label, #login label {
+#register label,
+#login label,
+#edit label,
+#delete label {
   color: chocolate;
 }
 
-#register h3, #login h3 {
+#register h3,
+#login h3,
+#edit h3,
+#delete h3 {
   margin-bottom: 20px;
   color: cornflowerblue;
 }
 
-#register input, #login input {
+#register input,
+#login input,
+#edit input,
+#delete input {
   height: 30px;
   margin: 0 10px;
 }

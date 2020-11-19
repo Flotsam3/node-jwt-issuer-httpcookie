@@ -6,6 +6,8 @@ const jwtIssuer = require('../utils/jwtissuer');
 
 router.post('/register', (req, res)=>{
 
+    console.log(req.body.email)
+
     User.findOne({ email: req.body.email }).then((user) => {
         if(user !== null) {
             res.status(401).send('User already exists');
@@ -37,8 +39,8 @@ router.post('/login', (req, res)=>{
                 if (err) throw err;
                 
                 if (valid){
-                    console.log(req.body);
-                    res.status(200).cookie('jwt', jwtIssuer(user).signedToken, {httpOnly: true, sameSite: 'lax'}).send('Successfully logged in!');
+                    res.status(200).cookie('jwt', jwtIssuer(user).signedToken, 
+                    {httpOnly: true, sameSite: 'lax'}).send('Successfully logged in!');
                 }else{
                     res.status(401).send('Access denied, please log in!')
                 }
